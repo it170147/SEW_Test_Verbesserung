@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="10">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="webjars/picnic/7.1.0/picnic.min.css">
+    <link rel="icon" href="/img/favicon.ico">
+    <title>SVG-Animator</title>
+    <style>
+        #forms {
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: row;
+            padding: 0;
+            margin: 0;
+        }
+        .form-container {
+            border-radius: 15px;
+            padding: 15px;
+            max-width: 25vw;
+            margin: 15px;
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.12);
+        }
+        input {
+            width: 100%;
+            font-size: 16px;
+            color: #000;
+            margin-bottom: 5px;
+            border: none;
+            border-bottom: 1px solid #fff;
+            outline: none;
+            background: transparent;
+        }
+        h3 {
+            margin: 0 0 30px;
+            padding: 0;
+            color: #000;
+            text-align: center;
+            font-family: sans-serif;
+        }
+        h1 {
+            box-sizing: border-box;
+            width: calc(100vw - 30px);
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.12);
+            border-radius: 15px;
+            margin: 15px;
+            padding: 15px;
+        }
+        .input-section{
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+        label {
+            color: #0D1C2C;
+            font-weight: bold;
+            width: 130px;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<h1>SVG-Animator</h1>
+<div id="forms">
+{#for circle in circles}
+    <div class="form-container">
+    <h3>{circle.htmlIconName}</h3>
+    <form method="POST"
+          action="/api/svg"
+          enctype="application/x-www-form-urlencoded">
+    <div class="input-section">
+    <label for="xPos">x-Pos:</label>
+    <input name="xPos" type="number" value="{circle.xPos}">
+        px
+    </div>
+    <div class="input-section">
+    <label for="yPos">y-Pos:</label>
+    <input name="yPos" type="number" value="{circle.yPos}">
+        px
+    </div>
+    <input name="htmlIconName" value="{circle.htmlIconName}" style="display: none">
+    <input type="submit" value="Submit">
+    </form>
+    </div>
+{/for}</div>
+
+<svg height="500" width="1000">
+{!<svg height="{facility.areaHeight}" width="{facility.areaWidth}">!}
+    <style type="text/css">
+        .powerline-producer {
+            animation: animate-producer  500ms linear infinite;
+        }
+        .powerline-consumer {
+            animation: animate-consumer  500ms linear infinite;
+        }
+        @keyframes animate-producer {
+            0% {
+                stroke-dashoffset: 50;
+            }
+            100% {
+                stroke-dashoffset: 5;
+            }
+        }
+        @keyframes animate-consumer {
+            0% {
+                stroke-dashoffset: 5;
+            }
+            100% {
+                stroke-dashoffset: 50;
+            }
+        }
+    </style>
+    <defs>
+        {#for circle in circles}
+            <pattern id="{circle.htmlIconName}" x="0%" y="0%" height="100%" width="100%" viewBox="0 0 512 512">
+                <image x="0%" y="0%" width="512" height="512" xlink:href="{circle.htmlIconFileName}"></image>
+            </pattern>
+        {/for}
+    </defs>
+
+    {#for line in lines}
+        <line class="{line.cssClass}" x1="{line.x1pos}" y1="{line.y1pos}" x2="{line.x2pos}" y2="{line.y2pos}"
+        stroke="{line.stroke}"
+        stroke-width="{line.strokeWidth}"
+        stroke-dasharray="{line.strokeDasharray}"
+        stroke-dashoffset="{line.strokeDashoffset}"
+        />
+    {/for}
+
+    {#for circle in circles}
+        <circle
+                cx="{circle.xPos}"
+                cy="{circle.yPos}"
+                r="{circle.radius}"
+                stroke-width="{circle.strokeWidth}"
+                stroke="{circle.stroke}"
+                fill="url(#{circle.htmlIconName})"
+        />
+    {/for}
+
+</svg>
+</body>
+</html>

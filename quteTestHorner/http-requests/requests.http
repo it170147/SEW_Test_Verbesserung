@@ -1,0 +1,19 @@
+###
+GET http://localhost:8080/svg
+
+
+###
+PUT http://localhost:8080/api/svg
+Content-Type: application/json
+
+{
+  "html_id": "solar-panel",
+  "x_pos": 200,
+  "y_pos": 100
+}
+
+###
+POST http://localhost:8080/api/svg
+Content-Type: application/x-www-form-urlencoded
+
+htmlIconName=solar-panel&xPos=200&yPos=150

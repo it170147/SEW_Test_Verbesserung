@@ -1,0 +1,120 @@
+= test01 - 4bhitm - sew - 2022-12-12
+Thomas W. Stütz
+1.0, {docdate}
+:icons: font
+:imagesdir: asciidocs/images
+:sectnums:    // Nummerierung der Überschriften / section numbering
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+:toc:
+:toclevels: 3
+
+== Aufgabenstellung - Überblick
+
+* Als Softwareentwickler bzw -in sollen Sie eine Photovoltaik-Anlage visualisieren.
+
+* Eine solche Anlage besteht aus mehreren *Komponenten*:
+** Wechselrichter (inverter)
+** Solarpaneel (solar-panel)
+** Batterie (battery)
+** Einspeisung Netz (feed-in)
+** Verbraucher (local-consumer)
+** Auto Ladeanschluß (wallbox)
+
+image::animation-initial.png[]
+
+* Das System ist flexibel zu konfigurieren
+
+* Die Daten hierzu werden in einer Datenbank gespeichert.
+
+* Sie sollen diese Daten auslesen und als Qute Template als Webseite ausgeben.
+
+* Nun kann die Visualisierung mittels REST-Requests geändert werden.
+
+* Auch Änderungen in der Datenbank wirken sich direkt auf die Visualisierung aus
+
+== Aufgabenstellung detailliert
+
+=== Die vorgegebenen Entitätsklassen sind zu persistieren
+
+* Verwenden Sie hierzu eine Derby-DB.
+
+image::https://www.plantuml.com/plantuml/png/ZLF1RXCn4BtxAqOvfKYk58whA18aAI25RTLGUdQyixiMZXtPtZOBz5lu67wCyMwoSLf0lLXltjX-CyzZgONtS2MaqYgqy8C1g2A3bJKLJASL6dGYO36RKUBoaXOZjfZ1EZXbAWeBzDAfNL3M9AnmAEvL4UeCb0a7uYEggWuzyyIOx9HpM-0hLEkmrP-AH24I-NafvQ69R6Zdd_KPKltIxkXqVa3TrWSb3_HYm4TnQSsLqlXCyvZANxWIb16zQfGuvrRAuDoQKbNKyu1FfioLaxgtPNzZ_T74Di7k27nmzXkUcTrJGpd3jIUfLpWklP_7KqbN-qaIj6cmVvjcqk1PBV-fTo5yBPmJxKlQbgN7lqrEVA2kb_ZCIrCbEbqJaVw0BhN2s80WwFY43LTa33XdS8-ozgYTadL01sDb7j0Hkc2mjbgudJ286iO-1Zn6cbBlHQ0z2c6ywL1Bt58PlqFb6t8tn_0TnYLYmPMXt5Tq6oSQMKS9RQNGd0R8DzjEw5qJBAn4WS9uMUlczoyOFmgjDtP_mT0K4EjdhFisqv-S7sQb9qQJ4N2DPI0-ucIs1hSYFutvDwD-ClkhY8aWWrBRHx8Ag8nPd-FDZlFPwLCDPFfBgBPccn3TgzpSNY_kvijRWlFhV7ttcU0J-mC0[]
+
+IMPORTANT: Die Felder über den gepunkteten Linien sind die Id's
+
+=== Generieren der Visualisierung
+
+* Mit den in der Datenbank enthaltenen Informationen generieren Sie die Visualisierung.
+** Verwenden Sie als Vorlage `src/main/resources/META-INF/resources/viewer-demo.html`
+** http://localhost:8080/viewer-demo.html
++
+image::html-animator.png[]
+
+
+==== Achten Sie auf die Flußrichtung des Leistungsflusses
+
+* Verwenden Sie hierzu den 'DeviceType'
+** PRODUCER
+** CONSUMER
+
+image::animation.gif[]
+
+
+
+=== Ändern der Visualisierung zur Laufzeit
+
+==== Position der Elemente (dabei werden die Koordinaten der Verbindungslinien aktualisiert)
+
+image::animation-initial.png[]
+
+image::animation-update-position.png[]
+
+==== Darstellung des Leistungsflusses
+
+* Steigt zB die Leistung des Solar-Paneels (zB von 2 auf 5kW), so wird der Leistungsfluß stärker dargestellt. Ev. kann man auch die Geschwindigkeit der Animation ändern. Eine weitere Möglichkeit wäre, eine stärkere Border des Elements zu zeichnen.
+
+image::animation-initial.png[]
+
+image::animation-more-power.png[]
+
+==== Erstellen von REST-Endpoints
+
+==== Erstellen der dazugehörigen REST-Requests
+
+* Verwenden Sie hierzu: `http-requests/requests.http`
+
+==== Prüfen Sie, ob auch Änderungen der Datenbank aktualisert werden
+
+==== Die Webseite soll sich alle 10s aktualisieren.
+
+=== Erstellung eines Formulars
+
+* Erstellen Sie ein Formular zum Ändern
+** der Position und
+** des Leistungsflusses
+
+image::html-form.png[]
+
+
+== Sources
+
+* https://quarkus.io/guides/qute
+* https://quarkus.io/guides/qute-reference
+* https://www.svgrepo.com/collection/environment-4/
+* https://www.webjars.org/
+
+
+
+
+
+
+
+
+
+

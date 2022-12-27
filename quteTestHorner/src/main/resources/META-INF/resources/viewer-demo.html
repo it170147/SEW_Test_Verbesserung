@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="10">
+    <link rel="stylesheet" href="webjars/picnic/7.1.0/picnic.min.css">
+    <link rel="icon" href="/img/favicon.ico">
+    <title>SVG-Animator</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<h1>SVG-Animator</h1>
+
+<svg height="500" width="1000">
+
+    <style type="text/css">
+        .powerline {
+            animation: animate 500ms linear infinite;
+        }
+
+        @keyframes animate {
+            0% {
+                stroke-dashoffset: 50;
+            }
+            100% {
+                stroke-dashoffset: 5;
+            }
+        }
+    </style>
+
+    <defs>
+        <pattern id="solar-panel" x="0%" y="0%" height="100%" width="100%" viewBox="0 0 512 512">
+            <image x="0%" y="0%" width="512" height="512" xlink:href="/img/solar-panel-svgrepo-com.svg"></image>
+        </pattern>
+        <pattern id="inverter" x="0%", y="0%", height="100%" width="100%" viewBox="0 0 512 512">
+            <image x="0%" y="0%" width="512" height="512" xlink:href="/img/voltmeter-power-svgrepo-com.svg"></image>
+        </pattern>
+    </defs>
+
+    <circle
+            cx="200"
+            cy="200"
+            r="50"
+            stroke-width="5"
+            stroke="grey"
+            fill="url(#solar-panel)"
+    />
+
+    <line class="powerline" x1="200" y1="200" x2="400" y2="200"
+          stroke="black"
+          stroke-width="5"
+          stroke-dasharray="5"
+          stroke-dashoffset="100"
+
+    />
+    <circle cx="400" cy="200" r="50"
+            stroke-width="5"
+            stroke="grey"
+            fill="url(#inverter)"
+    />
+
+
+</svg>
+</body>
+</html>
