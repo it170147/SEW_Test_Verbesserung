@@ -18,13 +18,26 @@ import java.util.List;
 
 @Path("svg")
 public class SvgViewerResource {
+    @Inject
+    CircleRepository circleRepository;
+    @Inject
+    LineConfigRepository lineConfigRepository;
+    @Inject
+    FacilityRepository facilityRepository;
 
-
-
+    @CheckedTemplate
+    public static class Templates {
+        public static native TemplateInstance svgviewerapi(List<Circle> circles, List<LineConfig> lines);
+    }
 
     @GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance renderSvg() {
+        var circles = circleRepository.listAll();
+        var lines = lineConfigRepository.listAll();
+        //var facility = facilityRepository.listAll().get(0);
+        return Templates.svgviewerapi(circles,lines);
 
     }
+
 }
