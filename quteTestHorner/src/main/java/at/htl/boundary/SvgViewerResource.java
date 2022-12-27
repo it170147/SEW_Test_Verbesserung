@@ -26,6 +26,5 @@ public class SvgViewerResource {
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance renderSvg() {
 
-
     }
 }

@@ -1,8 +1,11 @@
 package at.htl.entity;
 
+import javax.persistence.*;
 
 
+@Entity
 public class Circle extends Node {
+
 
     private int xPos;
     private int yPos;
@@ -59,7 +62,9 @@ public class Circle extends Node {
 
     public void setxPos(int xPos) {
         this.xPos = xPos;
-
+        if(getDestination()!=null){
+            getLineConfig().setX1pos(xPos);
+        }
     }
 
     public int getyPos() {
@@ -68,6 +73,9 @@ public class Circle extends Node {
 
     public void setyPos(int yPos) {
         this.yPos = yPos;
+        if(getDestination()!=null){
+            getLineConfig().setY1pos(yPos);
+        }
     }
 
     public int getRadius() {
@@ -100,4 +108,5 @@ public class Circle extends Node {
     public String toString() {
         return super.toString() + " (Circle)";
     }
+
 }

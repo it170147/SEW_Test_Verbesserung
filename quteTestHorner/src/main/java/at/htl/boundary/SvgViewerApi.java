@@ -18,4 +18,12 @@ import java.net.URI;
 
 @Path("/api/svg")
 public class SvgViewerApi {
+
+
+
+
+
+
+
+
 }
